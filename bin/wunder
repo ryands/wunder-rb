@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'wunder'
+Wunder::CLI.start(ARGV)
