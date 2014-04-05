@@ -1,4 +1,4 @@
-# Writing awesome cli tools as Ruby Gems - Part I
+# Writing Awesome CLI Tools in Ruby Part I
 
 ## Introduction
 
@@ -8,7 +8,9 @@ leverage ruby for its vast library of gems which can greatly accelerate and simp
 building these helpful tools.  
 
 This post will give an introduction to writing your own CLI tools in ruby and packaging them as a
-gem.  
+gem.  There are more concepts that I wanted to cover here, but that would prove to be a very lengthy
+post.  To simplify and make this concept more easy to digest, this post is the first of a short
+series of posts.
 
 ### Benefits to building gem packaged utilities
 
@@ -73,6 +75,30 @@ Bundler provides some rake tasks to help you package, install, and even publish 
 While developing you'll want to be testing your code manually.  In order to run your gem without
 building and installing it, you can run it with `bundle exec bin/myapp` and your executable will
 be run in the context of your defined environment in the Gemfile/gemspec.
+
+## Next steps
+
+This post leaves you at a place where you are able to create a gem project structure, add an
+executable to the bin/ directory, and package/install your gem.  If you've done everything
+correctly, you will be able to run your installed gem by simply executing the command that
+corresponds with the name of your executable in `bin/`.  In our case, `$ wunder` works.
+
+You will notice that the example project has a lot more things going on.  I will cover each
+of those things in Part II of *Writing Awesome CLI Tools in Ruby*
+
+Some topics to be covered:
+
+  * Designing your utility to function both as a library and a CLI tool
+  * Gems to make your life easy when writing these types of utilities
+  * Configuration files
+  * Rich commandline api's
+
+
+----------
+
+**Part II below this line **
+
+----------
 
 ## Selected gems
 
