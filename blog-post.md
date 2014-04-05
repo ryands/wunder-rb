@@ -62,6 +62,18 @@ The *gemspec* (`wunder.gemspec`) declares files in `bin/` to be executable with 
     spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
 
 
+#### Packaging your gem
+
+Bundler provides some rake tasks to help you package, install, and even publish your gem.  
+
+ * `rake build` - build and package your gem into `pkg/mygem-version.gem`
+ * `rake install` - build and install your gem to your local system
+ * `rake release` - publish your gem on [rubygems.org]
+
+While developing you'll want to be testing your code manually.  In order to run your gem without
+building and installing it, you can run it with `bundle exec bin/myapp` and your executable will
+be run in the context of your defined environment in the Gemfile/gemspec.
+
 ## Selected gems
 
 Some of the gems that I use to aid in the process of creating these tools are:
@@ -71,8 +83,12 @@ Some of the gems that I use to aid in the process of creating these tools are:
   * [Nokogiri] - html/xml parsing (great for api clients and web utilities)
   * [multi_json] - json parsing/creation (great for api clients and web utilities)
 
+Each of these can be added to the gemspec as a dependency.  After adding any dependency
+be sure to run `bundle` to install them.
+
 [Bundler]:http://bundler.io
 [Thor]:http://whatisthor.com
 [Nokogiri]:http://nokogiri.org
 [multi_json]:https://github.com/intridea/multi_json
 [wunder]:https://github.com/ryands/wunder-rb
+[rubygems.org]:http://rubygems.org
