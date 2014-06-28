@@ -101,7 +101,7 @@ Some topics to be covered:
 Introduction
 ============
 
-This is part II of a mini-series on writing awesome CLI tools using ruby. In the first part I described how to create
+This is part II of my series on writing awesome CLI tools using ruby. In the first part I described how to create
 your project layout, add an executable binary, and get started. In this next part I will cover:
 
   * How to structure your code to be usable as both a tool and a library
@@ -124,7 +124,7 @@ helps if any IO is configurable with defaults to stdin/stdout.
 You notice that the `Wunder::Wunderground` class takes a configuration object, provided by the CLI class (or potentially
 any other object that wants to take advantage of its features).
 
-### The commandline interface portion of our library.
+### The commandline interface
 
 Within the library, I have a class called "cli" (`lib/wunder/cli.rb`), which is my commandline interface. The commandline
 interface uses the fantastic [Thor] gem. An example of a thor interface might look like
@@ -145,7 +145,7 @@ Options are a bit different though...
 
 ```ruby
 class CLI < Thor
-  desc 'take_option, 'Option taking class'
+  desc 'take_option', 'Option taking class'
   option :opt, required: false, default: nil, aliases: ['o'], desc: 'An option.'
   def take_option
     puts "My option: #{options[:opt]}"
@@ -159,6 +159,11 @@ The CLI portion gets invoked from our 'binary' in `bin/wunder`, which calls `Wun
 
 The methods within the CLI class should configure objects, call methods, and format/print the results.
 
+Conclusion
+==========
+
+This post covered how to structure and build your library and commandline interface. Hopefully this will help you create
+useful and effective tools!
 
 ----------
 
