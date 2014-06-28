@@ -5,7 +5,7 @@
 I am always writing small tools to help me out on a daily basis.  Sometimes shell scripts, but other
 times I want something a bit more complex.  When I need more than a simple shell script, I like to
 leverage ruby for its vast library of gems which can greatly accelerate and simplify the task of
-building these helpful tools.  
+building these helpful tools.
 
 This post will give an introduction to writing your own CLI tools in ruby and packaging them as a
 gem.  There are more concepts that I wanted to cover here, but that would prove to be a very lengthy
@@ -97,6 +97,68 @@ Some topics to be covered:
 ----------
 
 **Part II below this line **
+
+Introduction
+============
+
+This is part II of a mini-series on writing awesome CLI tools using ruby. In the first part I described how to create
+your project layout, add an executable binary, and get started. In this next part I will cover:
+
+  * How to structure your code to be usable as both a tool and a library
+  * Building your CLI frontend to your library.
+
+The Library
+===========
+
+Your library lives within `lib/`. Break up the library into modules and classes. In this example we have a single module,
+`wunder`. 
+
+### Classes
+
+All of your work should be done from classes within your gem. These classes will be configured and executed by the CLI,
+but can also be reused within other scripts and programs by requiring them.
+
+Be sure to design your classes to be configurable, and to return values rather than simply printing the output. It also
+helps if any IO is configurable with defaults to stdin/stdout. 
+
+You notice that the `Wunder::Wunderground` class takes a configuration object, provided by the CLI class (or potentially
+any other object that wants to take advantage of its features).
+
+### The commandline interface portion of our library.
+
+Within the library, I have a class called "cli" (`lib/wunder/cli.rb`), which is my commandline interface. The commandline
+interface uses the fantastic [Thor] gem. An example of a thor interface might look like
+
+```ruby
+class CLI < Thor
+  desc 'echo ARG', 'Echo.  Takes an arg, prints it.'
+  def echo(arg)
+    puts arg
+  end
+end
+```
+
+As you can see right away: it is as simple as extending `Thor` and defining public methods. The methods are executable
+as sub-commands when this script is run. Arguments are simply method arguments.
+
+Options are a bit different though...
+
+```ruby
+class CLI < Thor
+  desc 'take_option, 'Option taking class'
+  option :opt, required: false, default: nil, aliases: ['o'], desc: 'An option.'
+  def take_option
+    puts "My option: #{options[:opt]}"
+  end
+end
+```
+
+The above method can be passed an option ('opt') either through `--opt=value` or `-o value`.
+
+The CLI portion gets invoked from our 'binary' in `bin/wunder`, which calls `Wunder::CLI.start(ARGV)` to kick it off.
+
+The methods within the CLI class should configure objects, call methods, and format/print the results.
+
 
 ----------
 
